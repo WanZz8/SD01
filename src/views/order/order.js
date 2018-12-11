@@ -35,7 +35,7 @@ function isIphoneX() {
     );
 }
 
-@inject('CacheStore')
+@inject('CacheStore', 'AssetsStore')
 class Order extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: '模拟交易',
@@ -95,11 +95,15 @@ class Order extends Component {
 
     componentWillMount() {
         const { code } = this.props.navigation.state.params;
-        const scheme = this.props.CacheStore.totalScheme;
+        const scheme = this.props.CacheStore.totalScheme[code];
         console.log(code);
         console.log(scheme);
         this.setState({
-            code
+            code,
+            stopProfit: scheme.stopProfitList[0],
+            stopLossList: scheme.stopLossList,
+            stopLoss: scheme.stopLossList[0],
+            chargeUnit: scheme.chargeUnit,
         });
     }
 

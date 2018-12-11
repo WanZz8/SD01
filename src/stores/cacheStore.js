@@ -8,6 +8,44 @@ import {
 } from '../config/baseConfig';
 
 class CacheStore {
+    USD = {
+        money: 0
+    };
+
+
+    BTC= {
+        money: 0
+    };
+
+    ETH={
+        money: 0
+    };
+
+    USDT= {
+        money: 0
+    };
+
+    currency= [
+        'USD',
+        'BTC',
+        'ETH',
+        'USDT'
+    ];
+
+    cryptos = 'ETH,BTC,USDT';
+
+    @observable userId = null;
+
+    @observable username = null;
+
+    @observable loginIp = null;
+
+    @observable withdrawPW = null;
+
+    @observable money = 0;
+
+    @observable game = 0;
+
     // 0-未登录,1-已登录
     @observable status = false;
 
@@ -197,6 +235,39 @@ class CacheStore {
     @action
     addSimBalance() {
         return GET(`${HOST}/trade/addScore.htm`);
+    }
+
+
+    @action
+    update() {
+        GET(`${HOST}/mine/index.htm`).then((res) => {
+            if (res.code === 200) {
+                if (res.asset) {
+                    this.money = res.asset.money;
+                    this.game = res.asset.game;
+                }
+                if (res.user) {
+                    const {
+                        id, loginIp, username, withdrawPw
+                    } = res.user;
+                    this.userId = id;
+                    this.loginIp = loginIp;
+                    this.username = username;
+                    this.withdrawPW = withdrawPw;
+                }
+            }
+        });
+    }
+
+    @action
+    reset() {
+        for (const o of this.currency) {
+            this[o].money = 0;
+        }
+        this.userId = null;
+        this.username = null;
+        this.loginIp = null;
+        this.withdrawPW = null;
     }
 }
 
