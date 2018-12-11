@@ -191,7 +191,7 @@ class Login extends Component {
                    || body.resultCode === 0) {
                     this.props.CacheStore.setLogin(this.state.account, this.state.password);
                     this.props.CacheStore.getUserInfo();
-                    // this.props.CacheStore.getScheme();
+                    this.props.CacheStore.getScheme();
                     const { goBack, state } = this.props.navigation;
                     state.params.refresh();
                     DeviceEventEmitter.emit('KeyBack', true);

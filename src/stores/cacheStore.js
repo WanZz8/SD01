@@ -42,6 +42,10 @@ class CacheStore {
         return this.gameBalance;
     }
 
+    @computed get totalScheme() {
+        return this.total;
+    }
+
     @action
     async init() {
         this.jpush = await AsyncStorage.getItem('jpush');
@@ -101,7 +105,14 @@ class CacheStore {
         }
         let url = '/trade/scheme.htm';
         let result = await GET(`${HOST}${url}${str}`);
+        if (!!result && result.tradeList.length > 0) {
+            for (const o of result.tradeList) {
+                this.total[o.contCode] = o;
+            }
+            this.initial = true;
+        }
         console.log(result);
+        console.log(this.total);
     }
 
     @action

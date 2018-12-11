@@ -10,6 +10,7 @@ import {
     TouchableHighlight, Platform
 } from 'react-native';
 import Icons from 'react-native-vector-icons/Ionicons';
+import { inject } from 'mobx-react/native';
 import { SCREEN_WIDTH } from '../../config/baseConfig';
 
 const width = Dimensions.get('window').width; // 全屏宽高
@@ -34,6 +35,7 @@ function isIphoneX() {
     );
 }
 
+@inject('CacheStore')
 class Order extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: '模拟交易',
@@ -93,7 +95,9 @@ class Order extends Component {
 
     componentWillMount() {
         const { code } = this.props.navigation.state.params;
+        const scheme = this.props.CacheStore.totalScheme;
         console.log(code);
+        console.log(scheme);
         this.setState({
             code
         });
