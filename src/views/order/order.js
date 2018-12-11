@@ -96,14 +96,12 @@ class Order extends Component {
     componentWillMount() {
         const { code } = this.props.navigation.state.params;
         const scheme = this.props.CacheStore.totalScheme[code];
-        console.log(code);
-        console.log(scheme);
         this.setState({
             code,
-            stopProfit: scheme.stopProfitList[0],
-            stopLossList: scheme.stopLossList,
-            stopLoss: scheme.stopLossList[0],
-            chargeUnit: scheme.chargeUnit,
+            // stopProfit: scheme.stopProfitList[0],
+            // stopLossList: scheme.stopLossList,
+            // stopLoss: scheme.stopLossList[0],
+            // chargeUnit: scheme.chargeUnit,
         });
     }
 
